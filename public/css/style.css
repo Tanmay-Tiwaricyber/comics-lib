@@ -1,0 +1,325 @@
+/* Base Styles */
+body {
+  font-family: 'Comic Neue', cursive, sans-serif;
+  background-color: #1a1a2e;
+  margin: 0;
+  padding: 0;
+  color: #e6e6e6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Doodle Theme Elements with Adult Color Palette */
+.doodle-header, .doodle-footer {
+  background-color: #2d0a3a;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border: 3px dashed #e94560;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+}
+
+.doodle-header::before, .doodle-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(233,69,96,0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.doodle-header h1 {
+  margin: 0;
+  color: #ff9a76;
+  text-shadow: 2px 2px 0 #e94560;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+.doodle-header nav {
+  margin-top: 15px;
+}
+
+.doodle-header nav a {
+  color: #ff9a76;
+  text-decoration: none;
+  margin-right: 20px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.doodle-header nav a:hover {
+  background-color: rgba(233, 69, 96, 0.3);
+  text-decoration: none;
+}
+
+.doodle-footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #ff9a76;
+}
+
+/* Auth Container Styles */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  background: radial-gradient(circle at center, #2d0a3a 0%, #1a1a2e 100%);
+  border-radius: 15px;
+  padding: 30px;
+}
+
+.doodle-card {
+  background-color: #2d0a3a;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border: 2px solid #e94560;
+  max-width: 450px;
+  width: 100%;
+  transition: transform 0.3s;
+}
+
+.doodle-card:hover {
+  transform: translateY(-5px);
+}
+
+.doodle-card h2 {
+  color: #ff9a76;
+  margin-top: 0;
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+}
+
+/* Input Styles */
+.doodle-input {
+  margin-bottom: 20px;
+}
+
+.doodle-input label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ff9a76;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.doodle-input input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e94560;
+  border-radius: 8px;
+  font-family: 'Comic Neue', cursive;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.doodle-input input:focus {
+  outline: none;
+  border-color: #ff9a76;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Button Styles */
+.doodle-button {
+  background-color: #e94560;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Comic Neue', cursive;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s;
+  border: 2px solid #e94560;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.doodle-button:hover {
+  background-color: #ff2d52;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+}
+
+.download-button {
+  background-color: #4a7bff;
+  border-color: #4a7bff;
+}
+
+.download-button:hover {
+  background-color: #2d5fff;
+  border-color: #2d5fff;
+  box-shadow: 0 5px 15px rgba(74, 123, 255, 0.4);
+}
+
+/* Library Styles */
+.library-container {
+  background-color: #2d0a3a;
+  border-radius: 15px;
+  padding: 25px;
+  border: 2px solid #e94560;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.library-container h2 {
+  color: #ff9a76;
+  margin-top: 0;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.comic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.comic-card {
+  background-color: #1f1130;
+  border-radius: 12px;
+  padding: 15px;
+  border: 2px dashed #e94560;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.comic-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(233, 69, 96, 0.3);
+  border-style: solid;
+}
+
+.comic-thumbnail {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background-color: #2d0a3a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-thumbnail::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(233,69,96,0.3) 0%, rgba(45,10,58,0.7) 100%);
+}
+
+.pdf-icon svg {
+  filter: drop-shadow(0 0 5px rgba(233, 69, 96, 0.7));
+}
+
+.comic-card h3 {
+  margin: 0 0 15px;
+  color: #ff9a76;
+  font-size: 1.2rem;
+  text-align: center;
+  flex-grow: 1;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+}
+
+.comic-meta {
+  color: #b8b8b8;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.comic-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Error Messages */
+.error-message {
+  color: #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ff6b6b;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comic-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .doodle-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .doodle-header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .auth-container {
+    padding: 15px;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e94560;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff2d52;
+}
+
+/* Animation for buttons */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.doodle-button:active {
+  animation: pulse 0.3s;
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../public/css/style.css">
+</head>
+<body>
+    <div class="viewer-container">
+  <div class="viewer-toolbar">
+    <button id="prev-page" class="doodle-button">Previous</button>
+    <span>Page: <span id="page-num">1</span> / <span id="page-count">0</span></span>
+    <button id="next-page" class="doodle-button">Next</button>
+    <button id="zoom-in" class="doodle-button">Zoom In</button>
+    <button id="zoom-out" class="doodle-button">Zoom Out</button>
+    <select id="scale-select" class="doodle-select">
+      <option value="0.5">50%</option>
+      <option value="0.75">75%</option>
+      <option value="1" selected>100%</option>
+      <option value="1.25">125%</option>
+      <option value="1.5">150%</option>
+      <option value="2">200%</option>
+    </select>
+  </div>
+  
+  <div class="pdf-viewer">
+    <canvas id="pdf-canvas"></canvas>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script>
+  // Set the worker path
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js';
+  
+  // PDF viewer variables
+  let pdfDoc = null,
+      pageNum = 1,
+      pageRendering = false,
+      pageNumPending = null,
+      scale = 1.0,
+      canvas = document.getElementById('pdf-canvas'),
+      ctx = canvas.getContext('2d');
+  
+  // Function to render a page
+  function renderPage(num) {
+    pageRendering = true;
+    
+    pdfDoc.getPage(num).then(function(page) {
+      const viewport = page.getViewport({ scale: scale });
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+      
+      const renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      
+      const renderTask = page.render(renderContext);
+      
+      renderTask.promise.then(function() {
+        pageRendering = false;
+        if (pageNumPending !== null) {
+          renderPage(pageNumPending);
+          pageNumPending = null;
+        }
+      });
+    });
+    
+    document.getElementById('page-num').textContent = num;
+  }
+  
+  // Function to queue page rendering
+  function queueRenderPage(num) {
+    if (pageRendering) {
+      pageNumPending = num;
+    } else {
+      renderPage(num);
+    }
+  }
+  
+  // Previous page button
+  document.getElementById('prev-page').addEventListener('click', function() {
+    if (pageNum <= 1) return;
+    pageNum--;
+    queueRenderPage(pageNum);
+  });
+  
+  // Next page button
+  document.getElementById('next-page').addEventListener('click', function() {
+    if (pageNum >= pdfDoc.numPages) return;
+    pageNum++;
+    queueRenderPage(pageNum);
+  });
+  
+  // Zoom in button
+  document.getElementById('zoom-in').addEventListener('click', function() {
+    scale += 0.25;
+    queueRenderPage(pageNum);
+  });
+  
+  // Zoom out button
+  document.getElementById('zoom-out').addEventListener('click', function() {
+    if (scale <= 0.5) return;
+    scale -= 0.25;
+    queueRenderPage(pageNum);
+  });
+  
+  // Scale select
+  document.getElementById('scale-select').addEventListener('change', function() {
+    scale = parseFloat(this.value);
+    queueRenderPage(pageNum);
+  });
+  
+  // Load the PDF file
+  const pdfUrl = '/comics/<%= filename %>';
+  
+  pdfjsLib.getDocument({
+    url: pdfUrl,
+    cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/cmaps/',
+    cMapPacked: true
+  }).promise.then(function(pdfDoc_) {
+    pdfDoc = pdfDoc_;
+    document.getElementById('page-count').textContent = pdfDoc.numPages;
+    
+    // Initial page render
+    renderPage(pageNum);
+  }).catch(function(error) {
+    console.error('Error loading PDF:', error);
+    alert('Error loading PDF. Please check console for details.');
+  });
+</script>
+</body>
+</html>
